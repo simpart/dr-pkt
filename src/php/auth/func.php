@@ -4,7 +4,7 @@
  * @brief authentication function
  * @author simpart
  */
-namespace ath;
+namespace auth;
 require_once(__DIR__ . '/../ttr/session/require.php');
 
 function isLoggedin () {

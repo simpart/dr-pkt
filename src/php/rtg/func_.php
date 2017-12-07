@@ -4,9 +4,9 @@
  * @brief function for routing
  */
 namespace rtg;
-require_once 'Net/URL/Mapper.php';
-require_once(__DIR__ . '/../ttr/class/require.php');
-require_once(__DIR__ . '/../ttr/file/require.php');
+//require_once 'Net/URL/Mapper.php';
+//require_once(__DIR__ . '/../ttr/class/require.php');
+//require_once(__DIR__ . '/../ttr/file/require.php');
 //require_once(__DIR__ . '/../auth/func.php');
 
 define('DPATH_TO_TOP', __DIR__ . '/../../../');
@@ -34,6 +34,30 @@ function getRoutePath($uri) {
               );
     }
 }
+
+
+function getContents($uri) {
+    try {
+        // check uri
+        
+        // get routing config
+        
+        // check api or contents
+        
+        // 
+    } catch(\Exception $e) {
+        throw new \Exception(
+            PHP_EOL   .
+            'File:'   . __FILE__   . ',' .
+            'Line:'   . __line__   . ',' .
+            'Func:' . __FUNCTION__ . ',' .
+            $e->getMessage()
+        );
+    }
+}
+
+
+
 
 function getInxConts () {
     try {
