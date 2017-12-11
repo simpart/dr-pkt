@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,31 +70,31 @@
 "use strict";
 
 
-__webpack_require__(8);
-__webpack_require__(10);
+__webpack_require__(9);
 __webpack_require__(11);
 __webpack_require__(12);
+__webpack_require__(13);
 
 __webpack_require__(4);
-__webpack_require__(13);
 __webpack_require__(14);
-__webpack_require__(4);
 __webpack_require__(15);
+__webpack_require__(4);
 __webpack_require__(16);
 __webpack_require__(17);
-
 __webpack_require__(18);
-__webpack_require__(19);
 
+__webpack_require__(19);
 __webpack_require__(20);
+
 __webpack_require__(21);
 __webpack_require__(22);
-
 __webpack_require__(23);
+
 __webpack_require__(24);
 __webpack_require__(25);
 __webpack_require__(26);
 __webpack_require__(27);
+__webpack_require__(28);
 module.exports = mofron;
 
 /***/ }),
@@ -624,8 +624,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @author simpart
  */
 var mf = __webpack_require__(0);
-var Radius = __webpack_require__(34);
-var Shadow = __webpack_require__(35);
+var Radius = __webpack_require__(35);
+var Shadow = __webpack_require__(6);
 
 /**
  * @class Frame
@@ -748,6 +748,115 @@ module.exports = mofron.comp.Frame;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * @file shadow.js
+ * @author simpart
+ */
+var mf = __webpack_require__(0);
+
+/**
+ * @class Shadow
+ * @brief Shadow class for mofron effect
+ */
+mofron.effect.Shadow = function (_mofron$Effect) {
+    _inherits(_class, _mofron$Effect);
+
+    function _class(prm) {
+        _classCallCheck(this, _class);
+
+        try {
+            var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this));
+
+            _this.name('Shadow');
+            _this.prmOpt('number' !== typeof prm ? prm : { value: prm });
+        } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+        return _this;
+    }
+
+    _createClass(_class, [{
+        key: 'value',
+        value: function value(val) {
+            try {
+                if (undefined === val) {
+                    return undefined === this.m_value ? 50 : this.m_value;
+                }
+
+                if ('number' !== typeof val || 0 > val) {
+                    throw new Error('invalid parameter');
+                }
+                this.m_value = val;
+            } catch (e) {
+                console.error(e.stack);
+                throw e;
+            }
+        }
+    }, {
+        key: 'color',
+        value: function color(clr) {
+            try {
+                if (undefined === clr) {
+                    /* getter */
+                    if (undefined === this.m_color) {
+                        this.color(new mf.Color(128, 128, 128));
+                    }
+                    return this.m_color;
+                }
+                /* setter */
+                if (false === mf.func.isInclude(clr, 'Color')) {
+                    throw new Error('invalid parameter');
+                }
+                this.m_color = clr;
+            } catch (e) {
+                console.error(e.stack);
+                throw e;
+            }
+        }
+    }, {
+        key: 'enable',
+        value: function enable(tgt) {
+            try {
+                tgt.style({
+                    'box-shadow': '0px ' + this.value() / 2 + 'px ' + this.value() + 'px ' + '0px ' + this.color().getStyle()
+                });
+            } catch (e) {
+                console.error(e.stack);
+                throw e;
+            }
+        }
+    }, {
+        key: 'disable',
+        value: function disable(tgt) {
+            try {
+                tgt.style({ 'box-shadow': null });
+            } catch (e) {
+                console.error(e.stack);
+                throw e;
+            }
+        }
+    }]);
+
+    return _class;
+}(mofron.Effect);
+module.exports = mofron.effect.Shadow;
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1118,35 +1227,97 @@ mofron.comp.form = {};
 module.exports = mofron.comp.Form;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /**
- * @file login.js
- * @brief login page
+ * @file main.js
+ * @brief app code before pack
  */
 var mf = __webpack_require__(0);
 /* component */
-var Login = __webpack_require__(28);
-/* app ctrl */
-var auth = __webpack_require__(43);
-var theme = __webpack_require__(44);
+var Login = __webpack_require__(29);
+/* effect */
+var Shadow = __webpack_require__(6);
 
-/**
- * page init function
- *
- * @param rt : root component
- */
+//let chart = require('./chart.js');
+//let noti  = require('./notify.js');
+//let AppBase = require('mofron-comp-dev');
+
+/* function */
+//let auth = require('../auth.js');
+
 var start = function start(rt) {
     try {
-        /* init main page */
-        rt.addChild(new Login({
-            title: 'APP Name',
-            authConf: new mf.Param('auth uri here', auth.auth)
-        }));
+        var login = new Login({
+            title: 'Dr.Pkt'
+            //            authConf : new mf.Param(
+            //                           './src/php/api/auth/login.php',
+            //                           auth.login
+            //                       )
+        });
+
+        login.header().execOption({
+            addEffect: new Shadow(20)
+        });
+
+        rt.addChild(login);
+
+        //let theme  = rt.theme();
+        //add_hdr(rt, theme.component('mofron-comp-apphdr'));
+        //
+        //let conts = get_conts();
+        //rt.addChild(conts);
+        //
+        //// add chart
+        //conts.addChild(
+        //    new mf.Component({
+        //        child : [
+        //            new Text('米びつチャート'),
+        //            chart.getRoot()
+        //        ]
+        //    })
+        //);
+        //
+        //// notify setting
+        //conts.addChild(
+        //    new mf.Component({
+        //        child : [
+        //            new Text('通知設定'),
+        //            
+        //        ]
+        //    })
+        //);
+
+
+        //let appbase = theme.component('mofron-comp-centerstyle');
+        //let base = new AppBase({
+        //    title : 'Dr.Pkt'
+        //    //url   : './'
+        //});
+        //rt.addChild(base);
+    } catch (e) {
+        console.error(e.stack);
+        throw e;
+    }
+};
+
+var get_conts = function get_conts() {
+    return new mf.Component({
+        layout: [new Center(90), new Margin('top', 30)]
+    });
+};
+
+var add_hdr = function add_hdr(rt, hdr) {
+    try {
+        hdr.execOption({
+            title: 'Stock Keeper',
+            url: './'
+        });
+        rt.addChild(hdr);
     } catch (e) {
         console.error(e.stack);
         throw e;
@@ -1154,8 +1325,8 @@ var start = function start(rt) {
 };
 
 try {
+    __webpack_require__(43);
     __webpack_require__(45);
-    theme.theme(app.root.theme());
     start(app.root);
     app.root.visible(true);
 } catch (e) {
@@ -1164,14 +1335,14 @@ try {
 /* end of file */
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["mofron"] = __webpack_require__(9);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["mofron"] = __webpack_require__(10);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1195,7 +1366,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1435,7 +1606,7 @@ mofron.Base = function () {
 /* end of file */
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1527,7 +1698,7 @@ mofron.Param = function (_mofron$Base) {
 }(mofron.Base);
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1858,7 +2029,7 @@ mofron.func.setTemp = function (key, val) {
 /* end of file */
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1964,7 +2135,7 @@ mofron.Attr = function (_mofron$DomConf) {
 }(mofron.DomConf);
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2114,7 +2285,7 @@ mofron.ClassName = function (_mofron$DomConf) {
 /* end of file */
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2204,7 +2375,7 @@ mofron.Prop = function (_mofron$DomConf) {
 }(mofron.DomConf);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2310,7 +2481,7 @@ mofron.Style = function (_mofron$DomConf) {
 }(mofron.DomConf);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2400,7 +2571,7 @@ mofron.CompConf = function (_mofron$Base) {
 /* end of file */
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3116,7 +3287,7 @@ mofron.Dom = function (_mofron$Base) {
 }(mofron.Base);
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3486,7 +3657,7 @@ mofron.Adom = function (_mofron$Dom) {
 }(mofron.Dom);
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3622,7 +3793,7 @@ mofron.Color = function (_mofron$Base) {
 /* end of file */
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3847,7 +4018,7 @@ mofron.font = {};
 /* end of file */
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4184,7 +4355,7 @@ mofron.Theme = function (_mofron$Base) {
 /* end of file */
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4975,7 +5146,7 @@ mofron.Component = function (_mofron$Base) {
 /* end of file */
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5054,7 +5225,7 @@ mofron.Layout = function (_mofron$CompConf) {
 /* end of file */
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5158,7 +5329,7 @@ mofron.Event = function (_mofron$CompConf) {
 /* end of file */
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5372,7 +5543,7 @@ mofron.Effect = function (_mofron$CompConf) {
 /* end of file */
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5562,7 +5733,7 @@ mofron.Template = function (_mofron$Base) {
 /* end of file */
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5584,7 +5755,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  */
 var mf = __webpack_require__(0);
 /* component */
-var Appbase = __webpack_require__(29);
+var Appbase = __webpack_require__(30);
 var Frame = __webpack_require__(5);
 var LoginForm = __webpack_require__(36);
 /* event */
@@ -5774,7 +5945,7 @@ mf.comp.Login = function (_Appbase) {
 module.exports = mofron.comp.Login;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5795,7 +5966,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @author simpart
  */
 var mf = __webpack_require__(0);
-var Header = __webpack_require__(30);
+var Header = __webpack_require__(31);
 
 /**
  * @class mofron.comp.AppBase
@@ -5934,7 +6105,7 @@ mf.comp.AppBase = function (_mf$Component) {
 module.exports = mofron.comp.AppBase;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5955,7 +6126,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @author simpart
  */
 var mf = __webpack_require__(0);
-var Header = __webpack_require__(31);
+var Header = __webpack_require__(32);
 
 mf.comp.Apphdr = function (_Header) {
     _inherits(_class, _Header);
@@ -6078,7 +6249,7 @@ mf.comp.Apphdr = function (_Header) {
 module.exports = mf.comp.Apphdr;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6101,7 +6272,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @author simpart
  */
 var mf = __webpack_require__(0);
-var Header = __webpack_require__(32);
+var Header = __webpack_require__(33);
 var Text = __webpack_require__(1);
 var Click = __webpack_require__(2);
 
@@ -6316,7 +6487,7 @@ mf.comp.ttlhdr = {};
 module.exports = mf.comp.Ttlhdr;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6335,7 +6506,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @author simpart
  */
 var mf = __webpack_require__(0);
-var Horizon = __webpack_require__(33);
+var Horizon = __webpack_require__(34);
 
 /**
  * @class comp.Header
@@ -6499,7 +6670,7 @@ mofron.comp.header = {};
 module.exports = mofron.comp.Header;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6562,7 +6733,7 @@ mofron.layout.Horizon = function (_mofron$Layout) {
 module.exports = mofron.layout.Horizon;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6655,115 +6826,6 @@ mofron.effect.Radius = function (_mofron$Effect) {
 module.exports = mofron.effect.Radius;
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/**
- * @file shadow.js
- * @author simpart
- */
-var mf = __webpack_require__(0);
-
-/**
- * @class Shadow
- * @brief Shadow class for mofron effect
- */
-mofron.effect.Shadow = function (_mofron$Effect) {
-    _inherits(_class, _mofron$Effect);
-
-    function _class(prm) {
-        _classCallCheck(this, _class);
-
-        try {
-            var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this));
-
-            _this.name('Shadow');
-            _this.prmOpt('number' !== typeof prm ? prm : { value: prm });
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-        return _this;
-    }
-
-    _createClass(_class, [{
-        key: 'value',
-        value: function value(val) {
-            try {
-                if (undefined === val) {
-                    return undefined === this.m_value ? 50 : this.m_value;
-                }
-
-                if ('number' !== typeof val || 0 > val) {
-                    throw new Error('invalid parameter');
-                }
-                this.m_value = val;
-            } catch (e) {
-                console.error(e.stack);
-                throw e;
-            }
-        }
-    }, {
-        key: 'color',
-        value: function color(clr) {
-            try {
-                if (undefined === clr) {
-                    /* getter */
-                    if (undefined === this.m_color) {
-                        this.color(new mf.Color(128, 128, 128));
-                    }
-                    return this.m_color;
-                }
-                /* setter */
-                if (false === mf.func.isInclude(clr, 'Color')) {
-                    throw new Error('invalid parameter');
-                }
-                this.m_color = clr;
-            } catch (e) {
-                console.error(e.stack);
-                throw e;
-            }
-        }
-    }, {
-        key: 'enable',
-        value: function enable(tgt) {
-            try {
-                tgt.style({
-                    'box-shadow': '0px ' + this.value() / 2 + 'px ' + this.value() + 'px ' + '0px ' + this.color().getStyle()
-                });
-            } catch (e) {
-                console.error(e.stack);
-                throw e;
-            }
-        }
-    }, {
-        key: 'disable',
-        value: function disable(tgt) {
-            try {
-                tgt.style({ 'box-shadow': null });
-            } catch (e) {
-                console.error(e.stack);
-                throw e;
-            }
-        }
-    }]);
-
-    return _class;
-}(mofron.Effect);
-module.exports = mofron.effect.Shadow;
-
-/***/ }),
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6785,7 +6847,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @author simpart
  */
 var mf = __webpack_require__(0);
-var Form = __webpack_require__(6);
+var Form = __webpack_require__(7);
 var Input = __webpack_require__(41);
 
 /**
@@ -6817,10 +6879,12 @@ mofron.comp.LoginForm = function (_Form) {
                 _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'initDomConts', this).call(this, prm);
                 this.addChild(new Input({
                     label: 'Username',
+                    text: 'test',
                     require: true
                 }));
                 this.addChild(new Input({
                     label: 'Password',
+                    text: 'test',
                     require: true,
                     secret: true
                 }));
@@ -7552,7 +7616,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @author simpart
  */
 
-__webpack_require__(6);
+__webpack_require__(7);
 
 mofron.comp.Input = function (_mofron$comp$Form) {
     _inherits(_class, _mofron$comp$Form);
@@ -7946,60 +8010,11 @@ module.exports = mofron.effect.Center;
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-/**
- * @file auth.js
- * @brief authentication function
- */
-var mf = __webpack_require__(0);
-module.exports = {
-    auth: function auth(msg) {
-        try {
-            // auth process here
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-    /* end of ifle */
-
-};
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * @file theme.js
- * @brief app theme
- */
-var mf = __webpack_require__(0);
-module.exports = {
-    theme: function theme(thm) {
-        try {
-            // please define app theme here
-        } catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-};
-/* end of file */
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["app"] = __webpack_require__(46);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["app"] = __webpack_require__(44);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 46 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8011,9 +8026,38 @@ module.exports = {
  */
 var mf = __webpack_require__(0);
 module.exports = {
-  root: new mf.Component(),
-  conf: {}
+    root: new mf.Component(),
+    comp: {},
+    conf: {},
+    ctrl: {
+        init: {}
+    }
 };
+/* end of file */
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * @file theme.js
+ */
+var mf = __webpack_require__(0);
+
+try {
+    var thm = new mf.Theme();
+    thm.color(new mf.Color(240, 240, 240));
+    //thm.font();
+
+    //thm.component('mofron-comp-login', );
+
+    app.root.theme(thm);
+} catch (e) {
+    throw e;
+}
 /* end of file */
 
 /***/ })

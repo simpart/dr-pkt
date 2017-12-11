@@ -5,10 +5,16 @@
  * @author simpart
  */
 namespace auth;
-require_once(__DIR__ . '/../ttr/session/require.php');
+require_once(__DIR__ . '/../com/define.php');
+require_once(__DIR__ . '/../ttr/class/require.php');
 
-function isLoggedin () {
+echo "test";
+
+function chkLoggedin () {
     try {
+        // check loggedin
+        $ses = new \ttr\session\Controller(DCOM_APP_TITLE);
+        $chk = $ses->get('loggedin');
         return false;
     } catch (\Exception $e) {
         throw new \Exception(

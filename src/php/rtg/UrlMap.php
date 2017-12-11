@@ -10,8 +10,9 @@ namespace rtg;
  * @class UrlMap
  */
 class UrlMap {
-    private $conf = null;
-
+    private $conf    = null;
+    private $map_idx = 0;
+    
     /**
      * check uri format, and get request contents
      * 
@@ -32,13 +33,147 @@ class UrlMap {
         }
     }
     
-    public function getContsPath ($url_key) {
+    public function getNext () {
         try {
-            foreach ($this->conf as $cidx => $cval) {
-                if (0 === strcmp($cval['url'], $url_key)) {
-                    return $cval['conts'];
+            if ($this->map_idx > (count($this->conf)-1)) {
+                $this->map_idx = 0;
+                return null;
+            }
+            $idx = $this->map_idx;
+            $this->map_idx++;
+            return $this->conf[$idx];
+        } catch (\Exception $e) {
+            throw new \Exception(
+                PHP_EOL   .
+                'File:'   . __FILE__         . ',' .
+                'Line:'   . __line__         . ',' .
+                'Class:'  . get_class($this) . ',' .
+                'Method:' . __FUNCTION__     . ',' .
+                $e->getMessage()
+            );
+        }
+    }
+    
+    public function getList () {
+        try {
+            return $this->conf;
+        } catch (\Exception $e) {
+            throw new \Exception(
+                PHP_EOL   .
+                'File:'   . __FILE__         . ',' .
+                'Line:'   . __line__         . ',' .
+                'Class:'  . get_class($this) . ',' .
+                'Method:' . __FUNCTION__     . ',' .
+                $e->getMessage()
+            );
+        }
+    }
+    
+    public function getAttr ($url) {
+        try {
+            $val = $this->getValue($url);
+            if ((null === $val) || (true !== array_key_exists('attr', $val))) {
+                return null;
+            }
+            return $val['attr'];
+        } catch (\Exception $e) {
+            throw new \Exception(
+                PHP_EOL   .
+                'File:'   . __FILE__         . ',' .
+                'Line:'   . __line__         . ',' .
+                'Class:'  . get_class($this) . ',' .
+                'Method:' . __FUNCTION__     . ',' .
+                $e->getMessage()
+            );
+        }
+    }
+    
+    public function isAttr ($url, $chk) {
+        try {
+            $attr = $this->getAttr($url);
+            foreach ($attr as $elm) {
+                if (0 === strcmp($elm, $chk)) {
+                    return true;
                 }
             }
+            return false;
+        } catch (\Exception $e) {
+            throw new \Exception(
+                PHP_EOL   .
+                'File:'   . __FILE__         . ',' .
+                'Line:'   . __line__         . ',' .
+                'Class:'  . get_class($this) . ',' .
+                'Method:' . __FUNCTION__     . ',' .
+                $e->getMessage()
+            );
+        }
+    }
+    
+    public function getConts ($url) {
+        try {
+            $val = $this->getValue($url);
+            if (null === $val) {
+                return null;
+            }
+            return $val['conts'];
+        } catch (\Exception $e) {
+            throw new \Exception(
+                PHP_EOL   .
+                'File:'   . __FILE__         . ',' .
+                'Line:'   . __line__         . ',' .
+                'Class:'  . get_class($this) . ',' .
+                'Method:' . __FUNCTION__     . ',' .
+                $e->getMessage()
+            );
+        }
+    }
+    
+    private function getValue ($p_url) {
+        try {
+            $c_url = null;
+            $mch   = true;
+            
+            foreach ($this->conf as $celm) {
+                $c_url = new \ttr\routing\URL($celm['url']);
+                // check root request
+                if (0 === count($c_url->getUrl())) {
+                    if (0 === count($p_url->getUrl())) {
+                        return $celm;
+                    } else {
+                        continue;
+                    }
+                }
+                
+                // check matched url
+                $mch     = true;
+                $cnf_url = $c_url->getUrl();
+
+                foreach ($cnf_url as $cidx => $cval) {
+                    // check regex
+                    if (0 === strcmp('*', $cval)) {
+                        if ($cidx >= count($p_url->getUrl())) {
+                            $mch = false;
+                            break;
+                        }
+                        // skip check
+                        continue;
+                    } else if ($cidx >= count($p_url->getUrl())) {
+                        $mch = false;
+                        break;
+                    } else if (0 === strcmp($p_url->getUrl($cidx), $cval)) {
+                        continue;
+                    } else {
+                        $mch = false;
+                        break;
+                    }
+                }
+                // check matched
+                if (true === $mch) {
+                    // matched url
+                    return $celm;
+                }
+            }
+            // no matched url
             return null;
         } catch (\Exception $e) {
             throw new \Exception(
