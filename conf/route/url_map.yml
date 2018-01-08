@@ -1,0 +1,43 @@
+
+### Login Page Contetns ###
+- 
+  url   : /login
+  conts : ./html/login.html
+  attr  : 
+    - login
+
+- 
+  url   : /src/js/dist/login.js
+  conts : /src/js/dist/login.js
+  attr  :
+    - login
+
+-
+  url   : /api/login
+  conts : /src/php/auth/login.php
+  attr  : 
+    - login
+
+### Top Page Contents ###
+- 
+  url   : /
+  conts : ./html/top.html
+  attr  : null
+
+### Private Contents ###
+- 
+  url   : /src/php/*
+  conts : ./html/err/400.html
+
+- 
+  url   : /html/*
+  conts : ./html/err/400.html
+
+- 
+  url   : /conf/*
+  conts : ./html/err/400.html
+
+- 
+  url   : /tool/*
+  conts : ./html/err/400.html
+
