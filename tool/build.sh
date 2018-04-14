@@ -2,22 +2,18 @@
 SCP_DIR=$(cd $(dirname $0);pwd);
 cd $SCP_DIR/../
 WEBPACK=node_modules/.bin/webpack
+MODE=''
 
-main_pack () {
-    echo $($WEBPACK --config conf/webpack/webpack.main.config.js);
-}
-
-login_pack () {
-    echo $($WEBPACK --config conf/webpack/webpack.login.config.js);
-}
-
-if [ -n "$1" ]; then
-    if [ $1 = "main" ]; then
-        main_pack
-    elif [ $1 = "login" ]; then
-        login_pack
-    fi
+if [[ $1 = "pro" ]]; then
+  MODE='production'
 else
-    main_pack
-    login_pack
+  MODE='development'
 fi
+
+EXEC="$WEBPACK --config conf/webpack/webpack.config.index.js --mode $MODE"
+echo $EXEC
+echo $($EXEC);
+#echo $($WEBPACK --config conf/webpack/webpack.config.index.js --mode $MODE);
+EXEC="$WEBPACK --config conf/webpack/webpack.config.login.js --mode $MODE"
+echo $EXEC
+echo $($EXEC);

@@ -7,7 +7,6 @@
 namespace rtg\err;
 require_once(__DIR__ . '/../../ttr/file/require.php');
 require_once(__DIR__ . '/../../ttr/header/require.php');
-require_once(__DIR__ . '/../../com/define.php');
 
 class RtgExcp extends \Exception {
     private $req_uri   = null;
@@ -66,7 +65,7 @@ class RtgExcp extends \Exception {
     public function responce () {
         try {
             http_response_code($this->resp_code);
-            $cnt_pth = DCOM_APP_PATH . '/html/err/' . $this->resp_code . '.html';
+            $cnt_pth = __DIR__ . '/../../../../html/err/' . $this->resp_code . '.html';
             if (true === \ttr\file\isExists($cnt_pth)) {
                 \ttr\header\setContsType($cnt_pth);
                 require($cnt_pth);

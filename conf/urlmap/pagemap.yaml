@@ -1,0 +1,20 @@
+-
+  url   : /
+  conts : ./html/index.html
+-
+  url   : /login
+  conts : ./html/login.html
+  attr  :
+    - login
+- 
+  url   : /src/js/app/login.js
+  conts : /src/js/app/login.js
+  attr  :
+    - login
+-
+  url   : /api/login
+  conts : /src/php/auth/login.php
+  attr  :
+    - login
+
+

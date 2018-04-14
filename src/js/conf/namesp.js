@@ -5,10 +5,6 @@
 let mf = require('mofron');
 module.exports = {
     root : new mf.Component(),
-    comp : {},
-    conf : {},
-    ctrl : {
-        init : {}
-    }
+    conf : {}
 };
 /* end of file */

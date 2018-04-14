@@ -5,6 +5,7 @@
  * @author simpart
  */
 namespace rtg;
+require_once(__DIR__ . '/../ttr/dir/require.php');
 require_once(__DIR__ . '/../ttr/file/require.php');
 
 /**
@@ -12,13 +13,15 @@ require_once(__DIR__ . '/../ttr/file/require.php');
  */
 class UrlRouting {
     private $url      = null;
-    private $conf     = null;
     private $cnt_path = null;
+    private $map      = array();
     
     /**
      * check uri format, and get request contents
      * 
-     * @param[in] uri : request uri string
+     * @param[in] $u : (string) request uri
+     * @param[in] $t : (string) app title
+     * @param[in] $c : (string) path to map config
      */
     function __construct($u, $t, $c) {
         try {
@@ -26,8 +29,19 @@ class UrlRouting {
             if (0 === strcmp($this->url->getUrl(0), $t)) {
                 $this->url->setOffset(1);
             }
-            $this->map      = new UrlMap($c);
-            //$this->cnt_path = $this->getContsPath();
+            
+            $cnf = \ttr\dir\getFiles($c);
+            foreach ($cnf as $cnf_elm) {
+                $exp_cnf = explode('/', $cnf_elm);
+                if (0 === strcmp($exp_cnf[count($exp_cnf)-1], 'README')) {
+                    continue;
+                }
+                $this->map[] = new UrlMap($cnf_elm);
+            }
+            /* check map count */
+            if (0 === count($this->map)) {
+                throw new \Exception('could not find map config');
+            }
         } catch (err\RtgExcp $rtg_exp) {
             throw $rtg_exp;
         } catch (\Exception $e) {
@@ -44,7 +58,12 @@ class UrlRouting {
     
     public function isRest () {
         try {
-            return $this->map->isAttr($this->url, 'rest');
+            foreach ($this->map as $elm) {
+                if (true === $elm->isAttr($this->url, 'rest')) {
+                    return true;
+                }
+            }
+            return false;
         } catch (\Exception $e) {
             throw new \Exception(
                 PHP_EOL   .
@@ -57,29 +76,35 @@ class UrlRouting {
         }
     }
     
+    /**
+     * check the request whether it require check loggedin process
+     */
     public function loginRequired () {
         try {
-            // check attr whether login attr is exists
-            $cnf_lst = $this->map->getList();
-            $hit_lgn = false;
-            foreach ($cnf_lst as $celm) {
-                if (false === array_key_exists('attr', $celm)) {
-                    continue;
-                }
-                foreach ($celm['attr'] as $aelm) {
-                    if (0 === strcmp('login', $aelm)) {
-                        $hit_lgn = true;
-                        break 2;
-                    }
+            $login_attr_hit = false;
+            /* check exists login attribute */
+            foreach ($this->map as $map_elm) {
+                if (true === $map_elm->existsAttr('login')) {
+                    $login_attr_hit = true;
+                    break;
                 }
             }
-            
-            if (false === $hit_lgn) {
+            if (false === $login_attr_hit) {
+                /* there is no 'login' attribute in the map */
                 return false;
             }
             
-            // check login request
-            return !($this->map->isAttr($this->url, 'login'));
+            /* check attribute whether login value is exists */
+            foreach ($this->map as $map_elm) {
+                /* check exsist map */
+                if (null === $map_elm->getConts($this->url)) {
+                    /* not matched */
+                    continue;
+                }
+                /* check attribute value */
+                return !($map_elm->isAttr($this->url, 'login'));
+            }
+            return true;
         } catch (\Exception $e) {
             throw new \Exception(
                 PHP_EOL   .
@@ -95,23 +120,26 @@ class UrlRouting {
     public function getContsPath () {
         try {
             if (null !== $this->cnt_path) {
-                // get from buffering
+                /* get from buffering */
                 return $this->cnt_path;
             }
             $toroot = __DIR__ . '/../../../';
-            // check map config
-            $chk_path = $this->map->getConts($this->url);
-            if (null !== $chk_path) {
-                $this->cnt_path = $toroot . $chk_path;
-                return $this->cnt_path;
+            /* check map config */
+            foreach ($this->map as $map_elm) {
+                $chk_path = $map_elm->getConts($this->url);
+                if (null !== $chk_path) {
+                    $this->cnt_path = $toroot . $chk_path;
+                    return $this->cnt_path;
+                }
             }
-            // check file path
+
+            /* check file path */
+            $path = $this->url->getUrlString();
             if (true === \ttr\file\isExists($toroot . $path)) {
                 $this->cnt_path = $toroot . $path;
                 return $this->cnt_path;
             }
-            
-            // error : not matched contents
+            /* error : not matched contents */
             $err = new err\RtgExcp($path);
             $err->setRespCode(400);
             throw $err;
@@ -128,7 +156,5 @@ class UrlRouting {
             );
         }
     }
-    
-    //private 
 }
 /* end of file */
