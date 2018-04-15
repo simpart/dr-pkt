@@ -1,7 +1,7 @@
--
+- 
   url   : /
   conts : ./html/index.html
--
+- 
   url   : /login
   conts : ./html/login.html
   attr  :
@@ -11,10 +11,16 @@
   conts : /src/js/app/login.js
   attr  :
     - login
--
+- 
   url   : /api/login
   conts : /src/php/auth/login.php
   attr  :
     - login
-
+    - rest
+- 
+  url   : /api/logout
+  conts : /src/php/auth/logout.php
+  attr  :
+    - login
+    - rest
 

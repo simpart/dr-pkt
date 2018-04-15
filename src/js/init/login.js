@@ -23,8 +23,16 @@ let start = (rt) => {
         let login = new Login({
             title    : 'Dr.Pkt',
             authConf : new mf.Param(
-                           './src/php/api/auth/login.php',
-                           ()=>{}//auth.login
+                           './api/login',
+                           (ret)=>{
+                               try {
+                                   if (true === ret.message) {
+                                       window.location.href = './'
+                                   }
+                               } catch (e) {
+                                   throw e;
+                               }
+                           }
                        )
         });
         login.header().execOption({

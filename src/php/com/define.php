@@ -4,6 +4,6 @@
  * @brief define list about routing
  * @autor simpart
  */
-define('DCOM_APP_TITLE', 'drpkt');
-define ('DCOM_DB_HOST' , '@DB_HOST');
+define('DCOM_APP_TITLE', 'dr-pkt');
+define ('DCOM_DB_HOST' , 'localhost:27017');
 /* end of file */

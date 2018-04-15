@@ -4,7 +4,9 @@
  */
 let mf = require('mofron');
 require('expose-loader?app!../conf/namesp.js');
+require('tetraring4js');
 
+let Button = require('mofron-comp-button');
 /* app ctrl */
 let theme = require('../conf/theme.js');
 
@@ -16,7 +18,20 @@ let theme = require('../conf/theme.js');
 let start = (rc) => {
     try {
         // page init here
-
+        rc.addChild(
+            new Button({
+                text : 'test',
+                clickEvent : () => {
+                    ttrg.rest.post(
+                        './api/logout',
+                        {},
+                        () => {
+                            window.location.href = './'
+                        }
+                    );
+                }
+            })
+        );
     } catch (e) {
         console.error(e.stack);
         throw e;
