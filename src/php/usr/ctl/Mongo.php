@@ -48,7 +48,6 @@ class Mongo implements Ctrl {
             $this->ctrl->add(
                 DUSR_MNGCOL,
                 array( 
-                  'id'       => $usr->id()      ,
                   'name'     => $usr->name()    ,
                   'password' => $usr->password(),
                   'role'     => $usr->role()
@@ -83,7 +82,7 @@ class Mongo implements Ctrl {
             /* delete */
             $this->ctrl->delete(
                 DUSR_MNGCOL,
-                [ 'id' => $fusr[0]->id() ]
+                [ 'name' => $fusr[0]->name() ]
             ); 
         } catch (\Exception $e) {
             throw new \Exception(
@@ -104,16 +103,16 @@ class Mongo implements Ctrl {
             if (true !== $set) {
                 throw new \Exception('parameter is not enough');
             }
-            $this->ctrl->update(
-                DUSR_MNGCOL,
-                [ 'id' => $usr->id() ],
-                [
-                  'id'       => $usr->id()      ,
-                  'name'     => $usr->name()    ,
-                  'password' => $usr->password(),
-                  'role'     => $usr->role()
-                ]
-            );
+            //$this->ctrl->update(
+            //    DUSR_MNGCOL,
+            //    [ 'id' => $usr->id() ],
+            //    [
+            //      'id'       => $usr->id()      ,
+            //      'name'     => $usr->name()    ,
+            //      'password' => $usr->password(),
+            //      'role'     => $usr->role()
+            //    ]
+            //);
         } catch (\Exception $e) {
             throw new \Exception(
                 PHP_EOL   .
@@ -135,7 +134,7 @@ class Mongo implements Ctrl {
             $ret = null;
             foreach ($rows as $doc) {
                 $usr = new \usr\User($doc->name);
-                $usr->id($doc->id);
+                //$usr->id($doc->id);
                 $usr->password($doc->password, false);
                 $usr->role($doc->role);
                 $ret[] = $usr;
