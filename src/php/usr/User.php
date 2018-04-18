@@ -7,7 +7,7 @@ namespace usr;
 require_once(__DIR__ . '/define.php');
 
 class User {
-    private $id     = null;
+    //private $id     = null;
     private $name   = null;
     private $passwd = null;
     private $role   = null;
@@ -29,31 +29,31 @@ class User {
         }
     }
    
-    public function id ($prm=null) {
-        try {
-            if (null === $prm) {
-                /* getter */
-                if (null === $this->id) {
-                     $this->id(uuid_create(UUID_TYPE_RANDOM));
-                }
-                return $this->id;
-            }
-            /* setter */
-            if ('string' !== gettype($prm)) {
-                throw new \Exception('invalid data type');
-            }
-            $this->id = $prm;
-        } catch (\Exception $e) {
-            throw new \Exception(
-                PHP_EOL   .
-                'File:'   . __FILE__         . ',' .
-                'Line:'   . __line__         . ',' .
-                'Class:'  . get_class($this) . ',' .
-                'Method:' . __FUNCTION__     . ',' .
-                $e->getMessage()
-            );
-        }
-    }
+    //public function id ($prm=null) {
+    //    try {
+    //        if (null === $prm) {
+    //            /* getter */
+    //            if (null === $this->id) {
+    //                 $this->id(uuid_create(UUID_TYPE_RANDOM));
+    //            }
+    //            return $this->id;
+    //        }
+    //        /* setter */
+    //        if ('string' !== gettype($prm)) {
+    //            throw new \Exception('invalid data type');
+    //        }
+    //        $this->id = $prm;
+    //    } catch (\Exception $e) {
+    //        throw new \Exception(
+    //            PHP_EOL   .
+    //            'File:'   . __FILE__         . ',' .
+    //            'Line:'   . __line__         . ',' .
+    //            'Class:'  . get_class($this) . ',' .
+    //            'Method:' . __FUNCTION__     . ',' .
+    //            $e->getMessage()
+    //        );
+    //    }
+    //}
     
     public function name ($prm=null) {
         try {
@@ -136,9 +136,9 @@ class User {
     
     public function isSetted ($chk) {
         try {
-            if ( (DUSR_ELM_ID & $chk) && (null === $this->id()) ) {
-                return false;
-            }
+            //if ( (DUSR_ELM_ID & $chk) && (null === $this->id()) ) {
+            //    return false;
+            //}
             
             if ( (DUSR_ELM_NAME & $chk) && (null === $this->name()) ) {
                 return false;
