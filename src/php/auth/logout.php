@@ -10,12 +10,6 @@ require_once(__DIR__ . '/func.php');
 require_once(__DIR__ . '/define.php');
  
 try {
-    //$post = json_decode(file_get_contents('php://input'));
-    ///* login authentication */
-    //if (false === authLogin($post->username, $post->password)) {
-    //    return false;
-    //}
-    //
     ///* set session */
     $ses   = new \ttr\session\Controller(DCOM_APP_TITLE);
     $ses->set(DATH_LGNCHK, false);

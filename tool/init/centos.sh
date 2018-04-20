@@ -16,24 +16,6 @@ ttrweb () {
     sudo systemctl restart httpd    
 }
 
-#install_uuid () {
-#    yum install -y libuuid-devel
-#    pecl install uuid
-#    EXT_TXT="extension=uuid.so"
-#    INI_PATH="/etc/php.ini"
-#    if [ ! -f $INI_PATH ]; then
-#        error "could not found php.ini"
-#    fi
-#
-#    CHK_EXT=$(cat $INI_PATH | grep $EXT_TXT)
-#    if [[ "" == ${CHK_EXT} ]]; then
-#        echo -e "\n*** add extension to php.ini ***\n"
-#        echo $EXT_TXT >> $INI_PATH
-#    fi
-#    
-#    sudo systemctl restart httpd
-#}
-
 
 echo "*** setup dr-pkt"
 ttrweb
