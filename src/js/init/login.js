@@ -28,6 +28,8 @@ let start = (rt) => {
                                try {
                                    if (true === ret.message) {
                                        window.location.href = './'
+                                   } else {
+                                       return 'invalid username or password';
                                    }
                                } catch (e) {
                                    throw e;
