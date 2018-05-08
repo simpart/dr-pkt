@@ -4,8 +4,8 @@
  * @brief define list for user
  * @author simpart
  */
-define ('DUSR_ROLE_ADMIN', 0);
-define ('DUSR_ROLE_USER',  1);
+define ('DUSR_ROLE_ADMIN', 1);
+define ('DUSR_ROLE_USER',  2);
 
 define ('DUSR_ELM_ID'  , 1);
 define ('DUSR_ELM_NAME', 2);

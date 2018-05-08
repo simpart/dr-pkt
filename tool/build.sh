@@ -14,6 +14,6 @@ EXEC="$WEBPACK --config conf/webpack/webpack.config.index.js --mode $MODE"
 echo $EXEC
 echo $($EXEC);
 
-EXEC="$WEBPACK --config conf/webpack/webpack.config.login.js --mode $MODE"
-echo $EXEC
-echo $($EXEC);
+#EXEC="$WEBPACK --config conf/webpack/webpack.config.login.js --mode $MODE"
+#echo $EXEC
+#echo $($EXEC);

@@ -13,7 +13,7 @@ ttrweb () {
     sudo $SCP_DIR/../../work/ttr-web/tool/setup/php.sh
     sudo $SCP_DIR/../../work/ttr-web/tool/setup/httpd.sh $SCP_DIR/../../../ dr-pkt
     sudo $SCP_DIR/../../work/ttr-web/tool/setup/mongo.sh
-    sudo systemctl restart httpd    
+    sudo systemctl restart httpd 
 }
 
 
